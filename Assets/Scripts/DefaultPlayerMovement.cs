@@ -5,21 +5,21 @@ public class DefaultPlayerMovement : MonoBehaviour
 {
     [SerializeField] private Text _staminatextbox;
 
-    private float _walkingSpeed = 0.008f;
-    private float _runningSpeed = 0.014f;
+    private float _walkingSpeed = 1.5f;
+    private float _runningSpeed = 2.5f;
     private float _stamina = 100;
     private float _stamingReducingSpeed = 0.2f;
     private float _staminaRegenerationSpeed = 0.2f;
-
     private float _currentSpeed;
 
-
+    private Rigidbody2D _rb;
     private PlayerInput _input;
 
     private void Awake()
     {
         _input = GetComponent<PlayerInput>();
-        _currentSpeed = _walkingSpeed;
+        _rb = GetComponent<Rigidbody2D>();
+        _currentSpeed = _walkingSpeed; 
     }
 
     private void OnEnable()
@@ -44,22 +44,22 @@ public class DefaultPlayerMovement : MonoBehaviour
 
     private void MoveForward()
     {
-        transform.position -= new Vector3(0, -_currentSpeed);
+        _rb.AddForce(new Vector2(0, _currentSpeed));
     }
 
     private void MoveLeft()
     {
-        transform.position -= new Vector3(_currentSpeed, 0);
+        _rb.AddForce(new Vector2(-_currentSpeed, 0));
     }
 
     private void MoveRight()
     {
-        transform.position += new Vector3(_currentSpeed, 0);
+        _rb.AddForce(new Vector2(_currentSpeed, 0));
     }
 
     private void MoveBack()
     {
-        transform.position += new Vector3(0, -_currentSpeed);
+        _rb.AddForce(new Vector2(0, -_currentSpeed));
     }
 
     private void Boost()

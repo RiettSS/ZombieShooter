@@ -16,12 +16,12 @@ public class Chest : MonoBehaviour
         _spriteRenderer.sprite = _closedChest;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (_isCollected)
             return;
 
-        if(collision.gameObject.TryGetComponent(out Player player))
+        if (collision.gameObject.TryGetComponent(out Player player))
         {
             _spriteRenderer.sprite = _openedChest;
             Instantiate(_bonus, transform);

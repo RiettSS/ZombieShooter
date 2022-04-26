@@ -61,22 +61,24 @@ public class Player : MonoBehaviour, IBonusVisitor
     }
 }
 
+
 [Serializable]
 public struct Health
 {
     private const float Min = 0;
-    [SerializeField] private readonly float Current;
+    [SerializeField] public readonly float Current;
     [SerializeField] private readonly float Max;
 
+    //fix issue with Mathf.Epsilon
     public Health(float hp, float max)
     {
-        if (hp - max > Mathf.Epsilon)
+        if (hp - max > 0)
             throw new ArgumentException();
             
-        if (hp < Mathf.Epsilon)
+        if (hp < 0)
             throw new ArgumentException();
 
-        if (max < Mathf.Epsilon)
+        if (max < 0)
             throw new ArgumentException();
 
         Current = hp;

@@ -15,6 +15,7 @@ public class Staff : Weapon
     {
         MaxAmmo = 10;
         CurrentAmmo = 5;
+        Damage = 20;
     }
 
     public override void Shoot()
@@ -22,7 +23,9 @@ public class Staff : Weapon
         if (CurrentAmmo <= 0)
             return;
 
+        
         var bullet = Instantiate(_bullet, _bulletSpawner);
+        bullet.Damage = Damage;
         bullet.transform.parent = null;
         var bulletRigidBody = bullet.GetComponent<Rigidbody2D>();
         bulletRigidBody.AddRelativeForce(new Vector2(500, 0));
