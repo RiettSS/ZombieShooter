@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d53f8ed8-741a-41af-8b5c-bdf43c6cbefa" name="Default Changelist" comment="" />
+    <list default="true" id="2e99d07d-83f7-4c18-85e2-76b8dc0b46a7" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/BulletSpawner.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@3.0.14/Rider/Editor/ProjectGeneration/ProjectGeneration.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/PlayerModel.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/PlayerView.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/PlayerPresenter.cs" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectId" id="25kb65B26q3UOEUp0IxKF0q2PkA" />
+  <component name="ProjectId" id="28LzUIepEKnwvNxNIXtEmNBOxqX" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -28,21 +23,17 @@
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d53f8ed8-741a-41af-8b5c-bdf43c6cbefa" name="Default Changelist" comment="" />
-      <created>1646073927514</created>
+      <changelist id="2e99d07d-83f7-4c18-85e2-76b8dc0b46a7" name="Default Changelist" comment="" />
+      <created>1651010695584</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1646073927514</updated>
-      <workItem from="1646073946051" duration="212000" />
-      <workItem from="1646074432895" duration="164000" />
-      <workItem from="1646074936452" duration="4000" />
-      <workItem from="1650399414533" duration="636000" />
+      <updated>1651010695584</updated>
+      <workItem from="1651010741058" duration="169000" />
     </task>
     <servers />
   </component>
@@ -53,15 +44,5 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="461" y="165" key="SettingsEditor" timestamp="1646074212086">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1646074212086" />
-    <state x="616" y="242" key="run.anything.popup" timestamp="1646074184485">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="616" y="242" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1646074184485" />
   </component>
 </project>

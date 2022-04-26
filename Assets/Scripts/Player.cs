@@ -7,10 +7,6 @@ public class Player : MonoBehaviour, IBonusVisitor
 {
     [SerializeField] private Weapon _weapon;
     [SerializeField] private PlayerInput _input;
-
-    //public float Health { get; private set; }
-    //public float MaxHealth { get; private set; }
-
     [SerializeField] private Health Health;
 
     private void Awake()
@@ -25,7 +21,6 @@ public class Player : MonoBehaviour, IBonusVisitor
         {
             bonus.Apply(this);
         }
-
     }
 
     private void Shoot()
@@ -70,13 +65,13 @@ public struct Health
 
     public Health(float hp, float max)
     {
-        if (hp - max > Mathf.Epsilon)
+        if (hp - max > 0)
             throw new ArgumentException();
             
-        if (hp < Mathf.Epsilon)
+        if (hp < 0)
             throw new ArgumentException();
 
-        if (max < Mathf.Epsilon)
+        if (max < 0)
             throw new ArgumentException();
 
         Current = hp;
