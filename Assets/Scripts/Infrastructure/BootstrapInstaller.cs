@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace Infrastructure
+namespace ZombieShooter.Infrastructure
 {
     public class BootstrapInstaller : MonoInstaller
     {

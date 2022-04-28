@@ -1,9 +1,10 @@
 using UnityEngine;
 using Zenject;
+using ZombieShooter.PlayerModule;
 using ZombieShooter.Service;
 using ZombieShooter.Service.Impl;
 
-namespace Infrastructure
+namespace ZombieShooter.Infrastructure
 {
     public class SceneContextInstaller : MonoInstaller
     {
