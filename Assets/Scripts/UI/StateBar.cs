@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class StateBar : MonoBehaviour
 {
-    [SerializeField] public Image _healthBar;
+    [SerializeField] private Image _healthBar;
     [SerializeField] private Image _manaBar;
 
     private float _healthFill;
@@ -20,11 +20,13 @@ public class StateBar : MonoBehaviour
     private void OnEnable()
     {
         _player.HealthChanged += UpdateHealthBar;
+        _player.ManaChanged += UpdateManaBar;
     }
 
     private void OnDisable()
     {
         _player.HealthChanged -= UpdateHealthBar;
+        _player.ManaChanged -= UpdateManaBar;
     }
     private void Start()
     {
@@ -42,6 +44,12 @@ public class StateBar : MonoBehaviour
     {
         _healthFill = health.Amount / health.Max;
         _healthBar.fillAmount = _healthFill;
+    }
+
+    private void UpdateManaBar(Mana mana)
+    {
+        _manaFill = mana.Amount / mana.Max;
+        _manaBar.fillAmount = _manaFill;
     }
 
     

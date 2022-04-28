@@ -15,6 +15,7 @@ public class Player : MonoBehaviour, IBonusVisitor, IDamagable
     private IInputService _inputService;
 
     public event Action<Health> HealthChanged;
+    public event Action<Mana> ManaChanged;
     private void Awake()
     {
         _health = new Health(100, 100);
@@ -83,5 +84,12 @@ public class Player : MonoBehaviour, IBonusVisitor, IDamagable
 
         if (_health.IsEmpty)
             Die();
+    }
+
+    public void ReduceMana(Mana mana)
+    {
+        _mana = _mana.Reduce(mana);
+
+        ManaChanged?.Invoke(mana);
     }
 }

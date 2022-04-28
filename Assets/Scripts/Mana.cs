@@ -24,13 +24,13 @@ public struct Mana
         IsEmpty = hp < Mathf.Epsilon;
     }
 
-    public Mana TakeDamage(Damage damage)
+    public Mana Reduce(Mana mana)
     {
-        return Amount - damage.Amount < Mathf.Epsilon ? new Mana(0, Max) : new Mana(Amount - damage.Amount, Max);
+        return Amount - mana.Amount < Mathf.Epsilon ? new Mana(0, Max) : new Mana(Amount - mana.Amount, Max);
     }
 
-    public Mana AddHealth(Health health)
+    public Mana Add(Mana mana)
     {
-        return Amount + health.Amount >= Max ? new Mana(Max, Max) : new Mana(Amount + health.Amount, Max);
+        return Amount + mana.Amount >= Max ? new Mana(Max, Max) : new Mana(Amount + mana.Amount, Max);
     }
 }
