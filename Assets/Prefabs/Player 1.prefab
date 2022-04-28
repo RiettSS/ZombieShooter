@@ -52,6 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weapon: {fileID: 3535368308949385541}
   _input: {fileID: 3535368307618673107}
+  _hpText: {fileID: 0}
 --- !u!50 &3535368307618673113
 Rigidbody2D:
   serializedVersion: 4
@@ -285,3 +286,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bullet: {fileID: 7746264452942684053, guid: 52ba09e05b062ed4c91570a813abb944, type: 3}
   _bulletSpawner: {fileID: 3535368307324967469}
+  _mana: {fileID: 0}

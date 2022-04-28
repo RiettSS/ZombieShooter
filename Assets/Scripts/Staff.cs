@@ -5,6 +5,7 @@ public class Staff : Weapon
 {
     [SerializeField] private Bullet _bullet;
     [SerializeField] private Transform _bulletSpawner;
+    [SerializeField] private Text _mana;
 
     private float _ammoRegenerationAmount = 1; //ammo per time
     private float _ammoRegenerationDelay = 1; //ms
@@ -15,7 +16,7 @@ public class Staff : Weapon
     {
         MaxAmmo = 10;
         CurrentAmmo = 5;
-        Damage = 20;
+        Damage = new Damage(20);
     }
 
     public override void Shoot()
@@ -23,12 +24,11 @@ public class Staff : Weapon
         if (CurrentAmmo <= 0)
             return;
 
-        
         var bullet = Instantiate(_bullet, _bulletSpawner);
-        bullet.Damage = Damage;
+        bullet.Initialize(Damage);
         bullet.transform.parent = null;
         var bulletRigidBody = bullet.GetComponent<Rigidbody2D>();
-        bulletRigidBody.AddRelativeForce(new Vector2(500, 0));
+        bulletRigidBody.AddRelativeForce(new Vector2(850, 0));
 
         CurrentAmmo -= 1;
     }
@@ -37,7 +37,7 @@ public class Staff : Weapon
     {
         AmmoRegeneration();
 
-        //text.text = CurrentAmmo.ToString();
+        _mana.text = CurrentAmmo.ToString();
     }
 
     private void AmmoRegeneration()

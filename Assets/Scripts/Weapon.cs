@@ -7,14 +7,7 @@ public abstract class Weapon : MonoBehaviour, IWeapon
     public float MaxAmmo { get; protected set; }
     public float CurrentAmmo { get; protected set; }
 
-    public float Damage { get; set; }
-
-    private float _defaultDamage = 5;
-
-    private void Awake()
-    {
-        Damage = _defaultDamage;
-    }
+    public Damage Damage;
 
     public virtual void Reload() { }
 

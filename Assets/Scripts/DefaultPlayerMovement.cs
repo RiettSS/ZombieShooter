@@ -22,6 +22,10 @@ public class DefaultPlayerMovement : MonoBehaviour
         _currentSpeed = _walkingSpeed; 
     }
 
+    private void Update()
+    {
+        _staminatextbox.text = Mathf.Floor(_stamina).ToString();
+    }
     private void OnEnable()
     {
         _input.ForwardPressed += MoveForward;
@@ -64,7 +68,7 @@ public class DefaultPlayerMovement : MonoBehaviour
 
     private void Boost()
     {
-        if (_stamina > 0)
+        if (_stamina - _stamingReducingSpeed > Mathf.Epsilon)
         {
             _stamina -= _stamingReducingSpeed;
             _currentSpeed = _runningSpeed;
