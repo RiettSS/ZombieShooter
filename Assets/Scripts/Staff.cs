@@ -1,5 +1,4 @@
-﻿using Unity.Mathematics;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 public class Staff : Weapon
@@ -33,7 +32,7 @@ public class Staff : Weapon
         
         var worldMousePosition = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
         var direction = (worldMousePosition - transform.position).normalized;
-        var bullet = Instantiate(_bullet, _bulletSpawner.position, quaternion.identity, null);
+        var bullet = Instantiate(_bullet, _bulletSpawner.position, Quaternion.identity, null);
         bullet.Initialize(Damage);
         bullet.transform.parent = null;
         var bulletRigidBody = bullet.GetComponent<Rigidbody2D>();

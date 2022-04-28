@@ -1,4 +1,3 @@
-using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 using ZombieShooter.Service;
@@ -23,7 +22,7 @@ namespace Infrastructure
 
         private void CreatePlayer()
         {
-            var player = Container.InstantiatePrefabForComponent<Player>(_playerPrefab, _startPoint.position, quaternion.identity, null);
+            var player = Container.InstantiatePrefabForComponent<Player>(_playerPrefab, _startPoint.position, Quaternion.identity, null);
             Container.Bind<Player>().FromInstance(player).AsSingle();
         }
     }
