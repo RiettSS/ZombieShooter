@@ -8,15 +8,18 @@ public class Enemy : MonoBehaviour, IDamagable
     private Player _player;
     private Health _health;
     private Damage _damage;
+    private bool _facingRight = true;
+
+    private SpriteRenderer _sprite;
     private void Awake()
     {
         _health = new Health(100, 100);
         _damage = new Damage(20);
     }
-
     private void Start()
     {
         _player = FindObjectOfType<Player>();
+        _sprite = GetComponentInChildren<SpriteRenderer>();
     }
     private void Update()
     {
@@ -32,6 +35,19 @@ public class Enemy : MonoBehaviour, IDamagable
 
         if (_rigidBody.velocity.magnitude < 1)
             _rigidBody.AddRelativeForce(new Vector2(0, 10));
+
+        var angle = transform.rotation.z;
+
+        if (_facingRight && angle > 0)
+        {
+            Flip();
+            _facingRight = false;
+        }
+        if (!_facingRight && angle < 0)
+        {
+            Flip();
+            _facingRight = true;
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -41,6 +57,12 @@ public class Enemy : MonoBehaviour, IDamagable
         }
     }
 
+    private void Flip()
+    {
+        Vector3 Scaler = _sprite.transform.localScale;
+        Scaler.y *= -1;
+        _sprite.transform.localScale = Scaler;
+    }
     private void Destroy()
     {
         Destroy(gameObject);

@@ -13,6 +13,7 @@ public class Knife : Weapon
     {
         if (collision.TryGetComponent<Player>(out Player player))
         {
+            Debug.Log("damage applied");
             player.ApplyDamage(Damage);
         }
     }
