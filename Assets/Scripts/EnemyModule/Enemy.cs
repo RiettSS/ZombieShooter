@@ -13,13 +13,15 @@ namespace ZombieShooter.EnemyModule
         [SerializeField] private SpriteRenderer _sprite;
 
         private Player _player;
+        private Movement _movement;
         private Health _health;
         private Damage _damage;
         private bool _facingRight = true;
-    
+
         private void Awake()
         {
             _health = new Health(100, 100);
+            _movement = new Movement(_rigidBody, _agressiveModeDistance);
             _damage = new Damage(20);
         }
 
@@ -31,32 +33,20 @@ namespace ZombieShooter.EnemyModule
     
         private void Update()
         {
-            if (_player == null)
-                return;
-
-            if (Vector3.Distance(transform.position, _player.transform.position) > _agressiveModeDistance)
-                return;
-
-            var objectPos = _player.transform.position;
-            var dir = objectPos - transform.position;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, -Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg));
-
-            if (_rigidBody.velocity.magnitude < 1)
-                _rigidBody.AddRelativeForce(new Vector2(0, 10));
-
+            _movement.TryMoveTo(_player.transform);
+            
             var angle = transform.rotation.z;
 
             if (_facingRight && angle > 0)
             {
                 Flip();
-                _facingRight = false;
             }
             if (!_facingRight && angle < 0)
             {
                 Flip();
-                _facingRight = true;
             }
         }
+        
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.TryGetComponent(out Player player))
@@ -67,10 +57,12 @@ namespace ZombieShooter.EnemyModule
 
         private void Flip()
         {
-            Vector3 Scaler = _sprite.transform.localScale;
-            Scaler.y *= -1;
-            _sprite.transform.localScale = Scaler;
+            var scaler = _sprite.transform.localScale;
+            scaler.y *= -1;
+            _sprite.transform.localScale = scaler;
+            _facingRight = !_facingRight;
         }
+        
         private void Destroy()
         {
             Destroy(gameObject);
@@ -79,8 +71,10 @@ namespace ZombieShooter.EnemyModule
         public void ApplyDamage(Damage damage)
         {
             _health = _health.TakeDamage(damage);
-            if (_health.Amount <= 0)
+            if (_health.IsEmpty)
+            {
                 Destroy();
+            }
         }
     }
 }

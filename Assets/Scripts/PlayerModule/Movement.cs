@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ZombieShooter.MovementModule
+namespace ZombieShooter.PlayerModule
 {
     public class Movement
     {

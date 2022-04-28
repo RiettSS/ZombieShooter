@@ -4,7 +4,6 @@ using Zenject;
 using ZombieShooter.BattleModule;
 using ZombieShooter.BattleModule.Impl;
 using ZombieShooter.BonusModule;
-using ZombieShooter.MovementModule;
 using ZombieShooter.Service;
 
 namespace ZombieShooter.PlayerModule
@@ -45,15 +44,7 @@ namespace ZombieShooter.PlayerModule
             _inputService.BoostPressed -= _movement.Boost;
             _inputService.BoostUnpressed -= _movement.BoostRegeneration;
         }
-    
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.TryGetComponent(out Bonus bonus))
-            {
-                bonus.Apply(this);
-            }
-        }
-    
+
         private void Die()
         {
             gameObject.SetActive(false);

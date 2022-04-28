@@ -3,7 +3,7 @@ using Zenject;
 
 namespace ZombieShooter.PlayerModule
 {
-    public class PlayerLookDirection : MonoBehaviour
+    public class LookDirectionChanger : MonoBehaviour
     {
         private bool _facingRight;
         private Vector3 _pos;
