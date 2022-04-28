@@ -74,7 +74,7 @@ public class Enemy : MonoBehaviour, IDamagable
     public void ApplyDamage(Damage damage)
     {
         _health = _health.TakeDamage(damage);
-        if (_health.Current <= 0)
+        if (_health.Amount <= 0)
             Destroy();
     }
 }

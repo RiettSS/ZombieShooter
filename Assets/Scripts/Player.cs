@@ -47,23 +47,20 @@ public class Player : MonoBehaviour, IBonusVisitor, IDamagable
             bonus.Apply(this);
         }
     }
-
-    private void AddHealth(float hp)
-    {
-        _health = _health.AddHealth(hp);
-    }
+    
     private void Die()
     {
         gameObject.SetActive(false);
     }
-    public void Visit(HealBonus bonus, float hpToHeal)
+    
+    void IBonusVisitor.Visit(HealBonus healthBonus)
     {
-        AddHealth(hpToHeal);
+        _health = _health.AddHealth(healthBonus.Health);
     }
 
-    public void Visit(DamageMultiplierBonus bonus, float multiplier, float bonusDuration)
+    void IBonusVisitor.Visit(DamageMultiplierBonus bonus)
     {
-        StartCoroutine(DamageMultiplier(multiplier, bonusDuration));
+        StartCoroutine(DamageMultiplier(bonus.Multiplier, bonus.BonusDuration));
     }
 
     private IEnumerator DamageMultiplier(float multiplier, float bonusDuration)
