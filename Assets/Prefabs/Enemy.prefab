@@ -143,6 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agressiveModeDistance: 10
   _rigidBody: {fileID: 4540809893601772156}
+  _sprite: {fileID: 4540809894346855002}
 --- !u!1 &4540809894346854996
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,26 +1,29 @@
 ﻿using UnityEngine;
+using Zenject;
 
 public class Enemy : MonoBehaviour, IDamagable
 {
     [SerializeField] private float _agressiveModeDistance;
     [SerializeField] private Rigidbody2D _rigidBody;
+    [SerializeField] private SpriteRenderer _sprite;
 
     private Player _player;
     private Health _health;
     private Damage _damage;
     private bool _facingRight = true;
-
-    private SpriteRenderer _sprite;
+    
     private void Awake()
     {
         _health = new Health(100, 100);
         _damage = new Damage(20);
     }
-    private void Start()
+
+    [Inject]
+    public void Construct(Player player)
     {
-        _player = FindObjectOfType<Player>();
-        _sprite = GetComponentInChildren<SpriteRenderer>();
+        _player = player;
     }
+    
     private void Update()
     {
         if (_player == null)

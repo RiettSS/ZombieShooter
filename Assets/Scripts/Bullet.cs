@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour, IBullet
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent<Enemy>(out Enemy enemy))
+        if(collision.TryGetComponent(out Enemy enemy))
         {
             enemy.ApplyDamage(Damage);
             Destroy(gameObject);

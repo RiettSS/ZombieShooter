@@ -1,14 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Zenject;
 
 public class CameraBinder : MonoBehaviour
 {
-    [SerializeField] private Transform _objectToFollow;
+    private Transform _objectToFollow;
 
+    [Inject]
+    private void Construct(Player player)
+    {
+        _objectToFollow = player.transform;
+    }
+    
     private void Update()
     {
-        transform.position = _objectToFollow.position;
-        transform.position += new Vector3(0, 0, -10);
+        var position = _objectToFollow.position;
+        transform.position = new Vector3(position.x, position.y, -10);
     }
 }

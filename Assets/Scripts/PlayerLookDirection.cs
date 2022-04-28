@@ -1,29 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Zenject;
 
 public class PlayerLookDirection : MonoBehaviour
 {
-    [SerializeField] private Transform _playerSprite;   
-    private bool facingRight = false;
-
-    private Vector3 pos;
+    private bool _facingRight;
+    private Vector3 _pos;
+    private Camera _camera;
+    
+    [Inject]
+    private void Construct(Camera cam)
+    {
+        _camera = cam;
+    }
+    
     public void Update()
     {
         LookAtCursor();
-        pos = Camera.main.WorldToScreenPoint(transform.position);
+        _pos = _camera.WorldToScreenPoint(transform.position);
     }
-    public void Flip()
+    
+    private void LookAtCursor()
     {
-        facingRight = !facingRight;
-        Vector3 Scaler = _playerSprite.transform.localScale;
-        Scaler.x *= -1;
-        _playerSprite.transform.localScale = Scaler;
+        if (Input.mousePosition.x < _pos.x && !_facingRight) Flip();
+        else if (Input.mousePosition.x > _pos.x && _facingRight) Flip();
     }
 
-    public void LookAtCursor()
+    private void Flip()
     {
-        if (Input.mousePosition.x < pos.x && !facingRight) Flip();
-        else if (Input.mousePosition.x > pos.x && facingRight) Flip();
+        _facingRight = !_facingRight;
+        var scaler = transform.localScale;
+        scaler.x *= -1;
+        transform.localScale = scaler;
     }
 }
