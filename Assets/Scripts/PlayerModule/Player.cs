@@ -16,15 +16,21 @@ namespace ZombieShooter.PlayerModule
 
         private Health _health;
         private Movement _movement;
+        private Inventory _inventory;
+        private WeaponPickUpSystem _weaponPickUpSystem;
         private IInputService _inputService;
     
         public event Action<Health> HealthChanged;
         public event Action<Mana> ManaChanged;
+
+        private float ShootingDelayAfterWeaponSwitchInSeconds = 0.5f;
         
         private void Awake()
         {
             _health = new Health(100, 100);
             _movement = new Movement(_rigidbody2D);
+            _inventory = new Inventory(new SpecifiedStrategy());
+            _weaponPickUpSystem = GetComponent<WeaponPickUpSystem>();
         }
     
         [Inject]
@@ -39,6 +45,12 @@ namespace ZombieShooter.PlayerModule
             _inputService.MovementDirectionUpdated += _movement.Move;
             _inputService.BoostPressed += _movement.Boost;
             _inputService.BoostUnpressed += _movement.BoostRegeneration;
+            _inputService.WeaponOnePressed += _inventory.WeaponOne;
+            _inputService.WeaponTwoPressed += _inventory.WeaponTwo;
+            _inputService.WeaponThreePressed += _inventory.WeaponThree;
+            _weaponPickUpSystem.WeaponFound += _inventory.Add;
+            _weaponPickUpSystem.WeaponFound += SetPlayerAsWeaponsParent;
+            _inventory.WeaponSwitched += SwitchWeapon;
         }
 
         private void OnDisable()
@@ -47,6 +59,12 @@ namespace ZombieShooter.PlayerModule
             _inputService.MovementDirectionUpdated -= _movement.Move;
             _inputService.BoostPressed -= _movement.Boost;
             _inputService.BoostUnpressed -= _movement.BoostRegeneration;
+            _inputService.WeaponOnePressed -= _inventory.WeaponOne;
+            _inputService.WeaponTwoPressed -= _inventory.WeaponTwo;
+            _inputService.WeaponThreePressed -= _inventory.WeaponThree;
+            _weaponPickUpSystem.WeaponFound -= _inventory.Add;
+            _weaponPickUpSystem.WeaponFound -= SetPlayerAsWeaponsParent;
+            _inventory.WeaponSwitched -= SwitchWeapon;
         }
 
         private void Die()
@@ -72,12 +90,33 @@ namespace ZombieShooter.PlayerModule
             _weapon.Damage = new Damage(_weapon.Damage.Amount / multiplier);
         }
 
+        private IEnumerator ShootingBlocker(float duration)
+        {
+            _inputService.Fire -= _weapon.Shoot;
+            yield return new WaitForSeconds(duration);
+            _inputService.Fire += _weapon.Shoot;
+        }
+
         public void ApplyDamage(Damage damage)
         {
             _health = _health.TakeDamage(damage);
             HealthChanged?.Invoke(_health);
             if (_health.IsEmpty)
                 Die();
+        }
+
+        private void SwitchWeapon(Weapon weapon)
+        {
+            _inputService.Fire -= _weapon.Shoot;
+            _weapon = weapon;
+            _inputService.Fire += _weapon.Shoot;
+
+            StartCoroutine(ShootingBlocker(ShootingDelayAfterWeaponSwitchInSeconds));
+        }
+
+        private void SetPlayerAsWeaponsParent(Weapon weapon)
+        {
+            weapon.transform.SetParent(gameObject.transform);
         }
     }
 }

@@ -10,7 +10,10 @@ namespace ZombieShooter.Service.Impl
         public event Action BoostPressed;
         public event Action BoostUnpressed;
         public event Action Fire;
-    
+        public event Action WeaponOnePressed;
+        public event Action WeaponTwoPressed;
+        public event Action WeaponThreePressed;
+
         private void Update()
         {
             var x = Input.GetAxis("Horizontal");
@@ -28,6 +31,15 @@ namespace ZombieShooter.Service.Impl
 
             if (Input.GetKey(KeyCode.Mouse1))
                 Fire?.Invoke();
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                WeaponOnePressed?.Invoke();
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+                WeaponTwoPressed?.Invoke();
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+                WeaponThreePressed?.Invoke();
         }
     }
 }

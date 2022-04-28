@@ -9,5 +9,9 @@ namespace ZombieShooter.Service
         event Action BoostPressed;
         event Action BoostUnpressed;
         event Action Fire;
+        event Action WeaponOnePressed;
+        event Action WeaponTwoPressed;
+        event Action WeaponThreePressed;
+
     }
 }

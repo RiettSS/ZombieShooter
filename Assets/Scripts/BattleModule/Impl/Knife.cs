@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using ZombieShooter.EnemyModule;
 using ZombieShooter.PlayerModule;
 
 namespace ZombieShooter.BattleModule.Impl
@@ -7,6 +8,11 @@ namespace ZombieShooter.BattleModule.Impl
     {
         [SerializeField] private float _damage;
 
+        private void Awake()
+        {
+            Type = WeaponType.Knife;
+        }
+
         private void Start()
         {
             Damage = new Damage(_damage);
@@ -14,10 +20,9 @@ namespace ZombieShooter.BattleModule.Impl
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.TryGetComponent<Player>(out Player player))
+            if (collision.TryGetComponent(out IDamageable damageable))
             {
-                Debug.Log("damage applied");
-                player.ApplyDamage(Damage);
+                damageable.ApplyDamage(Damage);
             }
         }
     }
