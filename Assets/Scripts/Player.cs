@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using Zenject;
 using ZombieShooter.Service;
@@ -9,12 +10,15 @@ public class Player : MonoBehaviour, IBonusVisitor, IDamagable
     [SerializeField] private Rigidbody2D _rigidbody2D;
 
     private Health _health;
+    private Mana _mana;
     private Movement _movement;
     private IInputService _inputService;
-    
+
+    public event Action<Health> HealthChanged;
     private void Awake()
     {
         _health = new Health(100, 100);
+        _mana = new Mana(100, 100);
         _movement = new Movement(_rigidbody2D);
     }
     
@@ -53,9 +57,10 @@ public class Player : MonoBehaviour, IBonusVisitor, IDamagable
         gameObject.SetActive(false);
     }
     
-    void IBonusVisitor.Visit(HealBonus healthBonus)
+    void IBonusVisitor.Visit(HealBonus bonus)
     {
-        _health = _health.AddHealth(healthBonus.Health);
+        _health = _health.AddHealth(bonus.Health);
+        HealthChanged?.Invoke(_health);
     }
 
     void IBonusVisitor.Visit(DamageMultiplierBonus bonus)
@@ -73,6 +78,8 @@ public class Player : MonoBehaviour, IBonusVisitor, IDamagable
     public void ApplyDamage(Damage damage)
     {
         _health = _health.TakeDamage(damage);
+
+        HealthChanged?.Invoke(_health);
 
         if (_health.IsEmpty)
             Die();

@@ -11,6 +11,8 @@ public class Staff : Weapon
     private float _ammoRegenerationDelay = 1; //ms
     private float _nextRegenerationTime = 0;
 
+    private Player _player;
+
     private Camera _camera; 
     
     private void Awake()
@@ -18,6 +20,8 @@ public class Staff : Weapon
         MaxAmmo = 10;
         CurrentAmmo = 5;
         Damage = new Damage(20);
+
+        _player = GetComponent<Player>();
     }
 
     [Inject]
@@ -40,7 +44,8 @@ public class Staff : Weapon
         
         bulletRigidBody.velocity = 50 * direction;
 
-        CurrentAmmo -= 1;
+        //CurrentAmmo -= 1;
+        
     }
 
     private void Update()

@@ -8,7 +8,7 @@ public class HealBonus : Bonus
     
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.gameObject.TryGetComponent(out IBonusVisitor bonusVisitor))
+        if (collider.gameObject.TryGetComponent(out IBonusVisitor bonusVisitor))
         {
             bonusVisitor.Visit(this);
         }
