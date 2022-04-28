@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using Zenject;
 using ZombieShooter.BattleModule;
@@ -17,6 +18,9 @@ namespace ZombieShooter.PlayerModule
         private Movement _movement;
         private IInputService _inputService;
     
+        public event Action<Health> HealthChanged;
+        public event Action<Mana> ManaChanged;
+        
         private void Awake()
         {
             _health = new Health(100, 100);
@@ -53,6 +57,7 @@ namespace ZombieShooter.PlayerModule
         void IBonusVisitor.Visit(HealBonus healthBonus)
         {
             _health = _health.AddHealth(healthBonus.Health);
+            HealthChanged?.Invoke(_health);
         }
 
         void IBonusVisitor.Visit(DamageMultiplierBonus bonus)
@@ -70,7 +75,7 @@ namespace ZombieShooter.PlayerModule
         public void ApplyDamage(Damage damage)
         {
             _health = _health.TakeDamage(damage);
-
+            HealthChanged?.Invoke(_health);
             if (_health.IsEmpty)
                 Die();
         }

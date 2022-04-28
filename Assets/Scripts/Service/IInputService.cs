@@ -5,9 +5,9 @@ namespace ZombieShooter.Service
 {
     public interface IInputService
     {
-        public event Action<Vector2> MovementDirectionUpdated;
-        public event Action BoostPressed;
-        public event Action BoostUnpressed;
-        public event Action Fire;
+        event Action<Vector2> MovementDirectionUpdated;
+        event Action BoostPressed;
+        event Action BoostUnpressed;
+        event Action Fire;
     }
 }
