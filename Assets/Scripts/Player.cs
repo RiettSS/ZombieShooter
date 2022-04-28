@@ -16,6 +16,7 @@ public class Player : MonoBehaviour, IBonusVisitor, IDamagable
 
     public event Action<Health> HealthChanged;
     public event Action<Mana> ManaChanged;
+    
     private void Awake()
     {
         _health = new Health(100, 100);

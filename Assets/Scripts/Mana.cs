@@ -8,6 +8,7 @@ public struct Mana
     public readonly float Max;
 
     public bool IsEmpty { get; }
+    
     public Mana(float hp, float max)
     {
         if (hp - max > 0)

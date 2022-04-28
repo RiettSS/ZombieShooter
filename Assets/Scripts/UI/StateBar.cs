@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class StateBar : MonoBehaviour
 {
@@ -12,26 +11,29 @@ public class StateBar : MonoBehaviour
     private float _manaFill;
 
     private Player _player;
-    private void Awake()
-    {
-        _player = GetComponent<Player>();
-    }
 
+    [Inject]
+    private void Construct(Player player)
+    {
+        _player = player;
+    }
+    
     private void OnEnable()
     {
-        _player.HealthChanged += UpdateHealthBar;
-        _player.ManaChanged += UpdateManaBar;
+        _player.HealthChanged += OnHealthChanged;
+        _player.ManaChanged += OnHealthChanged;
     }
 
     private void OnDisable()
     {
-        _player.HealthChanged -= UpdateHealthBar;
-        _player.ManaChanged -= UpdateManaBar;
-    }
+        _player.HealthChanged -= OnHealthChanged;
+        _player.ManaChanged -= OnHealthChanged;
+    } 
+    
     private void Start()
     {
-        _healthFill = 1f;
-        _manaFill = 1f;
+        _healthFill = 1;
+        _manaFill = 1;
     }
 
     private void Update()
@@ -40,17 +42,15 @@ public class StateBar : MonoBehaviour
         _manaBar.fillAmount = _manaFill;
     }
 
-    private void UpdateHealthBar(Health health)
+    private void OnHealthChanged(Health health)
     {
         _healthFill = health.Amount / health.Max;
         _healthBar.fillAmount = _healthFill;
     }
 
-    private void UpdateManaBar(Mana mana)
+    private void OnHealthChanged(Mana mana)
     {
         _manaFill = mana.Amount / mana.Max;
         _manaBar.fillAmount = _manaFill;
     }
-
-    
 }
