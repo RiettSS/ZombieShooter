@@ -15,7 +15,7 @@ namespace ZombieShooter.PlayerModule
         [SerializeField] private Rigidbody2D _rigidbody2D;
 
         private Health _health;
-        private Movement _movement;
+        private IMovement _movement;
         private IInputService _inputService;
     
         public event Action<Health> HealthChanged;
@@ -24,7 +24,9 @@ namespace ZombieShooter.PlayerModule
         private void Awake()
         {
             _health = new Health(100, 100);
-            _movement = new Movement(_rigidbody2D);
+            _movement = new RigidBodyMovement(_rigidbody2D);
+            //_movement = new DoTweenMovement(transform);
+            //_movement = new TeleportMovement(transform);
         }
     
         [Inject]

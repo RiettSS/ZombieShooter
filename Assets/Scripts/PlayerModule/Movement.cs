@@ -1,27 +1,21 @@
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace ZombieShooter.PlayerModule
+namespace ZombieShooter
 {
-    public class Movement
+    public abstract class Movement : IMovement
     {
-        private float _walkingSpeed = 220.5f;
-        private float _runningSpeed = 280.5f;
-        private float _stamina = 100;
-        private float _stamingReducingSpeed = 0.2f;
-        private float _staminaRegenerationSpeed = 0.2f;
-        private float _currentSpeed;
+        protected float _walkingSpeed = 350;
+        protected float _runningSpeed = 420;
+        protected float _stamina = 100;
+        protected float _stamingReducingSpeed = 0.2f;
+        protected float _staminaRegenerationSpeed = 0.2f;
+        protected float _currentSpeed;
 
-        private readonly Rigidbody2D _rigidbody;
-    
-        public Movement(Rigidbody2D rigidbody)
+        public Movement()
         {
-            _rigidbody = rigidbody;
             _currentSpeed = _walkingSpeed;
-        }
-
-        public void Move(Vector2 direction)
-        {
-            _rigidbody.velocity = direction * _currentSpeed * Time.fixedDeltaTime;
         }
 
         public void Boost()
@@ -30,7 +24,7 @@ namespace ZombieShooter.PlayerModule
             {
                 _stamina -= _stamingReducingSpeed;
                 _currentSpeed = _runningSpeed;
-            } 
+            }
             else
             {
                 _currentSpeed = _walkingSpeed;
@@ -44,5 +38,8 @@ namespace ZombieShooter.PlayerModule
             if (_stamina < 100)
                 _stamina += _staminaRegenerationSpeed;
         }
+
+        public abstract void Move(Vector2 direction);
+        
     }
 }
